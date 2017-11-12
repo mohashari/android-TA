@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">SIM Ikmi Riskina</string>
+    <string name="login_name">Login</string>
+    <string name="title_activity_home">Home</string>
+
+    <string name="register">Register</string>
+
+    <string name="forgot">Forgot Password</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">LogOut</string>
+
+    <string name="title_activity_spash_screen">SpashScreen</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+</resources>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.sinau.simikmiriskina">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_apps"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_apps"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".SpalshScreen"
+            android:label="@string/app_name"
+            android:theme="@style/FullscreenTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".Login"
+            android:label="@string/login_name" />
+        <activity
+            android:name=".Home"
+            android:label="@string/title_activity_home"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Register"
+            android:label="@string/register" />
+        <activity
+            android:name=".ForgotPassword"
+            android:label="@string/forgot"></activity>
+    </application>
+
+</manifest>
