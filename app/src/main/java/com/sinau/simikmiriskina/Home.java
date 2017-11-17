@@ -12,9 +12,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
+
+import java.util.HashMap;
 
 public class Home extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+
+    private SessionManager session;
+    HashMap<String, String> user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +29,9 @@ public class Home extends AppCompatActivity
         setContentView(R.layout.activity_home);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        session = new SessionManager(getApplicationContext());
+        user = session.getUserDetails();
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -74,10 +84,15 @@ public class Home extends AppCompatActivity
         FragmentManager fragmentManager = getFragmentManager();
 
         if (id == R.id.nav_profil) {
-            // Handle the camera action
+
+            Toast.makeText(getApplicationContext(),
+                    user.get(SessionManager.kunci_email),
+                    Toast.LENGTH_SHORT).show();
+
         } else if (id == R.id.nav_jadwal) {
 
         } else if (id == R.id.nav_ambilKelas) {
+
 
         } else if (id == R.id.nav_mata_kulish) {
             fragmentManager.beginTransaction()

@@ -34,14 +34,14 @@ public class MataKuliahRecyclerViewAdapter extends RecyclerView.Adapter<MataKuli
     public void onBindViewHolder(ViewHolder holder, int position) {
         MataKuliah p = mataKuliahs.get(position);
         holder.txtId.setText(p.getId());
-        holder.txtNama.setText(p.getNama());
+        holder.txtNama.setText(p.getName());
         holder.txtSemester.setText(p.getSemester());
         holder.txtVersion.setText(p.getVersion());
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return mataKuliahs.size();
     }
 
     public class ViewHolder extends  RecyclerView.ViewHolder implements View.OnClickListener {

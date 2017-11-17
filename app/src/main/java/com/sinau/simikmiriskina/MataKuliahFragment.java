@@ -16,7 +16,7 @@ import com.sinau.simikmiriskina.adapter.MataKuliahRecyclerViewAdapter;
 import com.sinau.simikmiriskina.api.ApiClient;
 import com.sinau.simikmiriskina.api.MataKuliahApiInterface;
 import com.sinau.simikmiriskina.model.MataKuliah;
-import com.sinau.simikmiriskina.model.MataKuliahValue;
+import com.sinau.simikmiriskina.model.MataKuliahResponse;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -66,15 +66,15 @@ public class MataKuliahFragment extends Fragment{
                 .build();
 
         MataKuliahApiInterface api = retrofit.create(MataKuliahApiInterface.class);
-        Call<MataKuliahValue> call = api.view();
+        Call<MataKuliahResponse> call = api.view();
 
-        call.enqueue(new Callback<MataKuliahValue>() {
+        call.enqueue(new Callback<MataKuliahResponse>() {
             @Override
-            public void onResponse(Call<MataKuliahValue> call, Response<MataKuliahValue> response) {
+            public void onResponse(Call<MataKuliahResponse> call, Response<MataKuliahResponse> response) {
                 String message = response.body().getMessage();
                 progressBar.setVisibility(View.GONE);
 
-                if(message.equals("OK") || message == "OK"){
+                if(message.equals("OK")){
                     mataKuliahs = response.body().getResult();
                     viewAdapter = new MataKuliahRecyclerViewAdapter(getActivity(), mataKuliahs);
                     recyclerView.setAdapter(viewAdapter);
@@ -82,7 +82,7 @@ public class MataKuliahFragment extends Fragment{
             }
 
             @Override
-            public void onFailure(Call<MataKuliahValue> call, Throwable t) {
+            public void onFailure(Call<MataKuliahResponse> call, Throwable t) {
                 t.printStackTrace();
                 progressBar.setVisibility(myView.GONE);
                 Toast.makeText(getActivity().getApplicationContext(), "Jaringan Error !", Toast.LENGTH_SHORT).show();

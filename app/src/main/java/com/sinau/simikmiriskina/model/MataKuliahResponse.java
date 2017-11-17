@@ -2,7 +2,7 @@ package com.sinau.simikmiriskina.model;
 
 import java.util.List;
 
-public class MataKuliahValue {
+public class MataKuliahResponse {
     private String message;
     private List<MataKuliah> result;
     private String pages;

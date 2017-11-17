@@ -11,14 +11,19 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class Login extends AppCompatActivity {
+    SessionManager session;
+
+    private EditText edtUsername;
+    private EditText editPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        session = new SessionManager(getApplicationContext());
 
-        final EditText edtUsername = (EditText) findViewById(R.id.input_email);
-        final EditText editPassword = (EditText) findViewById(R.id.input_password);
+        edtUsername = (EditText) findViewById(R.id.input_email);
+        editPassword = (EditText) findViewById(R.id.input_password);
         Button btnLogin = (Button) findViewById(R.id.btn_login);
         TextView regrister = (TextView)findViewById(R.id.link_signup);
         TextView forgot = (TextView)findViewById(R.id.link_forgot);
@@ -32,6 +37,7 @@ public class Login extends AppCompatActivity {
                 if (edtUsername.getText().toString().equals(username) &&
                         editPassword.getText().toString().equals(pass)) {
                     Intent intent = new Intent(Login.this, Home.class);
+                    session.createSession(edtUsername.getText().toString());
                     startActivity(intent);
                     LOADINGSPLASH();
 
