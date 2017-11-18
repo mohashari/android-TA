@@ -15,5 +15,5 @@ public interface JadwalApiInterface {
 
     @Headers("Content-Type: application/json")
     @POST("mahasiswa/jadwal")
-    Call<ResultMessage> login(String idMahasiswa, List<String> idMatkul);
+    Call<ResultMessage> login(@Body AddJadwal addJadwal);
 }

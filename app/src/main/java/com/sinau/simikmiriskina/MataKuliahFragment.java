@@ -85,7 +85,11 @@ public class MataKuliahFragment extends Fragment{
                 String idMahasiswa = user.get(SessionManager.kunci_email);
                 List<String> idMatakuliah = ArrayGetMatkul.idMatkul;
 
-                Call<ResultMessage> call = api.login(idMahasiswa, idMatakuliah);
+                AddJadwal jadwal = new AddJadwal();
+                jadwal.setIdMahasiswa(idMahasiswa);
+                jadwal.setIdMataKuliah(ArrayGetMatkul.idMatkul);
+
+                Call<ResultMessage> call = api.login(jadwal);
                 call.enqueue(new Callback<ResultMessage>() {
                     @Override
                     public void onResponse(Call<ResultMessage> call, Response<ResultMessage> response) {
