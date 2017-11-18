@@ -26,7 +26,6 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-
 public class ProfileFragment extends Fragment {
     private View view;
     private Object mahasiswas = new ArrayList<>();
@@ -82,10 +81,8 @@ public class ProfileFragment extends Fragment {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        String a = "88eea23b-c760-43c2-8f1c-a17754946f18";
-
         MahasiswaApiInterface api = retrofit.create(MahasiswaApiInterface.class);
-        Call<MahasiswaResponse> call = api.getMahasiswa(a.toString());
+        Call<MahasiswaResponse> call = api.getMahasiswa(user.get(SessionManager.kunci_email));
         call.enqueue(new Callback<MahasiswaResponse>() {
             @Override
             public void onResponse(Call<MahasiswaResponse> call, Response<MahasiswaResponse> response) {

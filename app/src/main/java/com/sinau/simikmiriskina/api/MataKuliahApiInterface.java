@@ -7,7 +7,7 @@ import retrofit2.http.GET;
 
 public interface MataKuliahApiInterface {
 
-    @GET("matakuliah?limit=10000")
+    @GET("matakuliah")
     Call<MataKuliahResponse> view();
 
 }

@@ -17,8 +17,6 @@ public class LoginRequest {
     @Expose
     private String password;
 
-
-
     public String getNim() {
         return nim;
     }

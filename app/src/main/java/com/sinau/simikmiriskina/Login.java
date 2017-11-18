@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.sinau.simikmiriskina.api.ApiClient;
 import com.sinau.simikmiriskina.api.MahasiswaApiInterface;
 import com.sinau.simikmiriskina.model.LoginRequest;
@@ -36,7 +37,6 @@ public class Login extends AppCompatActivity {
     private EditText editPassword;
 
     private void bindData() {
-        //+"/"+user.get(SessionManager.kunci_email)
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(ApiClient.URL)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -47,6 +47,7 @@ public class Login extends AppCompatActivity {
         LoginRequest loginRequest = new LoginRequest();
         loginRequest.setNim(edtUsername.getText().toString());
         loginRequest.setPassword(editPassword.getText().toString());
+
         Call<ResultMessage> call = api.login(loginRequest);
 
         call.enqueue(new Callback<ResultMessage>() {
@@ -55,12 +56,14 @@ public class Login extends AppCompatActivity {
                 String message = response.body().getMessage();
 
                 if (message.equals("OK")) {
-                    mahasiswas = response.body().getResult();
+                    Gson gson = new Gson();
+                    JsonObject jsonObject = gson.toJsonTree(response.body().getResult()).getAsJsonObject();
+                    Mahasiswa m = gson.fromJson(jsonObject.toString(), Mahasiswa.class);
+
                     Intent intent = new Intent(Login.this, Home.class);
-                    session.createSession("88eea23b-c760-43c2-8f1c-a17754946f18");
+                    session.createSession(m.getId());
                     startActivity(intent);
                     LOADINGSPLASH();
-
                 } else {
                     Toast.makeText(getApplicationContext(), response.body().getResult().toString(), Toast.LENGTH_SHORT).show();
                 }

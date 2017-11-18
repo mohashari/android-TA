@@ -87,10 +87,6 @@ public class Home extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_profil) {
-
-            Toast.makeText(getApplicationContext(),
-                    user.get(SessionManager.kunci_email),
-                    Toast.LENGTH_SHORT).show();
             fragmentManager.beginTransaction()
                     .replace(R.id.content_frame, new ProfileFragment())
                     .commit();
@@ -98,9 +94,6 @@ public class Home extends AppCompatActivity
         } else if (id == R.id.nav_jadwal) {
 
         } else if (id == R.id.nav_ambilKelas) {
-
-
-        } else if (id == R.id.nav_mata_kulish) {
             fragmentManager.beginTransaction()
                     .replace(R.id.content_frame, new MataKuliahFragment())
                     .commit();
