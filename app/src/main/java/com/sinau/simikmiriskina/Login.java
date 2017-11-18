@@ -37,7 +37,7 @@ public class Login extends AppCompatActivity {
                 if (edtUsername.getText().toString().equals(username) &&
                         editPassword.getText().toString().equals(pass)) {
                     Intent intent = new Intent(Login.this, Home.class);
-                    session.createSession("88eea23b-c760-43c2-8f1c-a17754946f18");
+                    session.createSession("5ba91eb5-0117-4b24-8e03-d70522f17394");
                     startActivity(intent);
                     LOADINGSPLASH();
 
@@ -64,8 +64,6 @@ public class Login extends AppCompatActivity {
             }
         });
     }
-
-
 
     public void LOADINGSPLASH() {
         final ProgressDialog myProgressDialog = ProgressDialog.show(Login.this, "Loading", "Mohon Tunggu...", true);

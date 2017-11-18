@@ -1,9 +1,8 @@
 package com.sinau.simikmiriskina;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,18 +10,15 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
-import com.sinau.simikmiriskina.adapter.MataKuliahRecyclerViewAdapter;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.sinau.simikmiriskina.api.ApiClient;
 import com.sinau.simikmiriskina.api.MahasiswaApiInterface;
-import com.sinau.simikmiriskina.api.MataKuliahApiInterface;
 import com.sinau.simikmiriskina.model.Mahasiswa;
 import com.sinau.simikmiriskina.model.MahasiswaResponse;
-import com.sinau.simikmiriskina.model.MataKuliahResponse;
-import com.sinau.simikmiriskina.model.Matakuliah;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -30,9 +26,10 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+
 public class ProfileFragment extends Fragment {
     private View view;
-    private List<Mahasiswa> mahasiswas = new ArrayList<>();
+    private Object mahasiswas = new ArrayList<>();
     SessionManager session ;
     HashMap<String, String> user;
 
@@ -80,43 +77,43 @@ public class ProfileFragment extends Fragment {
     }
 
     private void bindData(){
-        //+"/"+user.get(SessionManager.kunci_email)
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(ApiClient.URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        MahasiswaApiInterface api = retrofit.create(MahasiswaApiInterface.class);
-        Call<MahasiswaResponse> call = api.view();
+        String a = "88eea23b-c760-43c2-8f1c-a17754946f18";
 
+        MahasiswaApiInterface api = retrofit.create(MahasiswaApiInterface.class);
+        Call<MahasiswaResponse> call = api.getMahasiswa(a.toString());
         call.enqueue(new Callback<MahasiswaResponse>() {
             @Override
             public void onResponse(Call<MahasiswaResponse> call, Response<MahasiswaResponse> response) {
                 String message = response.body().getMessage();
+                Gson gson = new Gson();
 
                 if(message.equals("OK")){
-                    mahasiswas = response.body().getResult();
+                    JsonObject jsonObject = gson.toJsonTree(response.body().getResult()).getAsJsonObject();
+                    Mahasiswa m = gson.fromJson(jsonObject.toString(), Mahasiswa.class);
+                    txtId.setText(m.getId());
+                    txtNim.setText(m.getNim());
+                    txtName.setText(m.getName());
+                    txtVersion.setText(m.getVersion());
+                    txtAddress.setText(m.getAddress());
+                    txtEmail.setText(m.getEmail());
+                    txtReligious.setText(m.getReligious());
+                    txtPassword.setText(m.getPassword());
+                    txtSemester.setText(m.getSemester());
+                    txtJurusan.setText(m.getJurusan());
+                    txtPhone.setText(m.getPhone());
+                    txtPaying.setText(m.getPaying());
 
-                    for (Mahasiswa m : mahasiswas){
-                        txtId.setText(m.getId());
-                        txtNim.setText(m.getNim());
-                        txtName.setText(m.getName());
-                        txtVersion.setText(m.getVersion());
-                        txtAddress.setText(m.getAddress());
-                        txtEmail.setText(m.getEmail());
-                        txtReligious.setText(m.getReligious());
-                        txtPassword.setText(m.getPassword());
-                        txtSemester.setText(m.getSemester());
-                        txtJurusan.setText(m.getJurusan());
-                        txtPhone.setText(m.getPhone());
-                        txtPaying.setText(m.getPaying());
-
-                        if(m.getGender().toString().equals("male")){
-                            rbGenderMale.setChecked(true);
-                        } else if(m.getGender().toString().equals("female")){
-                            rbGenderFemale.setChecked(true);
-                        }
+                    if(m.getGender().toString().equals("male")){
+                        rbGenderMale.setChecked(true);
+                    } else if(m.getGender().toString().equals("female")){
+                        rbGenderFemale.setChecked(true);
                     }
+
                 }
             }
 
@@ -127,5 +124,4 @@ public class ProfileFragment extends Fragment {
             }
         });
     }
-
 }

@@ -8,9 +8,7 @@ import java.util.List;
 
 public class MahasiswaResponse {
     private String message;
-    private List<Mahasiswa> result;
-    private String pages;
-    private String elements;
+    private Object result;
 
     public String getMessage() {
         return message;
@@ -20,27 +18,16 @@ public class MahasiswaResponse {
         this.message = message;
     }
 
-    public List<Mahasiswa> getResult() {
+    public Object getResult() {
         return result;
+    }
+
+    public void setResult(Object result) {
+        this.result = result;
     }
 
     public void setResult(List<Mahasiswa> result) {
         this.result = result;
     }
 
-    public String getPages() {
-        return pages;
-    }
-
-    public void setPages(String pages) {
-        this.pages = pages;
-    }
-
-    public String getElements() {
-        return elements;
-    }
-
-    public void setElements(String elements) {
-        this.elements = elements;
-    }
 }
