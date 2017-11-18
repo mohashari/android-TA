@@ -1,7 +1,7 @@
 package com.sinau.simikmiriskina.model;
 
 
-public class MataKuliah {
+public class Matakuliah {
     private String id;
     private String name;
     private String semester;

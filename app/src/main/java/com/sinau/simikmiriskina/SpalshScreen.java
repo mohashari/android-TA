@@ -31,6 +31,7 @@ public class SpalshScreen extends AppCompatActivity {
         };
 
         thread.start();
+        
     }
 
     @Override

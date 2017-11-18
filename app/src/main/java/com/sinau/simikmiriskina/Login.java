@@ -37,7 +37,7 @@ public class Login extends AppCompatActivity {
                 if (edtUsername.getText().toString().equals(username) &&
                         editPassword.getText().toString().equals(pass)) {
                     Intent intent = new Intent(Login.this, Home.class);
-                    session.createSession(edtUsername.getText().toString());
+                    session.createSession("88eea23b-c760-43c2-8f1c-a17754946f18");
                     startActivity(intent);
                     LOADINGSPLASH();
 

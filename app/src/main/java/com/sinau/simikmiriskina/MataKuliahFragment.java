@@ -2,7 +2,7 @@ package com.sinau.simikmiriskina;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,7 +15,7 @@ import android.widget.Toast;
 import com.sinau.simikmiriskina.adapter.MataKuliahRecyclerViewAdapter;
 import com.sinau.simikmiriskina.api.ApiClient;
 import com.sinau.simikmiriskina.api.MataKuliahApiInterface;
-import com.sinau.simikmiriskina.model.MataKuliah;
+import com.sinau.simikmiriskina.model.Matakuliah;
 import com.sinau.simikmiriskina.model.MataKuliahResponse;
 
 import java.util.ArrayList;
@@ -30,7 +30,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class MataKuliahFragment extends Fragment{
     private View myView;
 
-    private List<MataKuliah> mataKuliahs = new ArrayList<>();
+    private List<Matakuliah> mataKuliahs = new ArrayList<>();
     private MataKuliahRecyclerViewAdapter viewAdapter;
 
     private ProgressBar progressBar;

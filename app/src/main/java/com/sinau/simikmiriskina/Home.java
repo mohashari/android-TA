@@ -1,10 +1,9 @@
 package com.sinau.simikmiriskina;
 
 
-import android.app.Fragment;
-import android.app.FragmentManager;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -23,6 +22,8 @@ public class Home extends AppCompatActivity
     private SessionManager session;
     HashMap<String, String> user;
 
+    FragmentManager fragmentManager = getSupportFragmentManager();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,7 +34,6 @@ public class Home extends AppCompatActivity
         session = new SessionManager(getApplicationContext());
         user = session.getUserDetails();
 
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -42,6 +42,10 @@ public class Home extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        fragmentManager.beginTransaction()
+                .replace(R.id.content_frame, new HomeFragment())
+                .commit();
     }
 
     @Override
@@ -81,13 +85,15 @@ public class Home extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-        FragmentManager fragmentManager = getFragmentManager();
 
         if (id == R.id.nav_profil) {
 
             Toast.makeText(getApplicationContext(),
                     user.get(SessionManager.kunci_email),
                     Toast.LENGTH_SHORT).show();
+            fragmentManager.beginTransaction()
+                    .replace(R.id.content_frame, new ProfileFragment())
+                    .commit();
 
         } else if (id == R.id.nav_jadwal) {
 

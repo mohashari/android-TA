@@ -2,9 +2,13 @@ package com.sinau.simikmiriskina.model;
 
 import java.util.List;
 
-public class MataKuliahResponse {
+/**
+ * Created by santoso on 11/17/17.
+ */
+
+public class MahasiswaResponse {
     private String message;
-    private List<Matakuliah> result;
+    private List<Mahasiswa> result;
     private String pages;
     private String elements;
 
@@ -16,11 +20,11 @@ public class MataKuliahResponse {
         this.message = message;
     }
 
-    public List<Matakuliah> getResult() {
+    public List<Mahasiswa> getResult() {
         return result;
     }
 
-    public void setResult(List<Matakuliah> result) {
+    public void setResult(List<Mahasiswa> result) {
         this.result = result;
     }
 

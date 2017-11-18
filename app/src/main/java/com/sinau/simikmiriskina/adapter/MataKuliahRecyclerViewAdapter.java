@@ -9,16 +9,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.sinau.simikmiriskina.R;
-import com.sinau.simikmiriskina.model.MataKuliah;
+import com.sinau.simikmiriskina.model.Matakuliah;
 
 import java.util.List;
 
 
 public class MataKuliahRecyclerViewAdapter extends RecyclerView.Adapter<MataKuliahRecyclerViewAdapter.ViewHolder>{
     private Context context;
-    private List<MataKuliah> mataKuliahs;
+    private List<Matakuliah> mataKuliahs;
 
-    public MataKuliahRecyclerViewAdapter(Context context, List<MataKuliah> mataKuliahs) {
+    public MataKuliahRecyclerViewAdapter(Context context, List<Matakuliah> mataKuliahs) {
         this.context = context;
         this.mataKuliahs = mataKuliahs;
     }
@@ -32,7 +32,7 @@ public class MataKuliahRecyclerViewAdapter extends RecyclerView.Adapter<MataKuli
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        MataKuliah p = mataKuliahs.get(position);
+        Matakuliah p = mataKuliahs.get(position);
         holder.txtId.setText(p.getId());
         holder.txtNama.setText(p.getName());
         holder.txtSemester.setText(p.getSemester());
