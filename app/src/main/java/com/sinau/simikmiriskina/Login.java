@@ -83,12 +83,11 @@ public class Login extends AppCompatActivity {
         edtUsername = (EditText) findViewById(R.id.input_email);
         editPassword = (EditText) findViewById(R.id.input_password);
         Button btnLogin = (Button) findViewById(R.id.btn_login);
-        TextView regrister = (TextView) findViewById(R.id.link_signup);
-        TextView forgot = (TextView) findViewById(R.id.link_forgot);
+        TextView regrister = (TextView)findViewById(R.id.link_signup);
+        TextView forgot = (TextView)findViewById(R.id.link_forgot);
 
         final String username = "admin";
         final String pass = "admin";
-
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
