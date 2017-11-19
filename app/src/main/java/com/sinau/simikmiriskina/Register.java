@@ -4,26 +4,95 @@ import android.content.Intent;
 import android.icu.util.Calendar;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.fourmob.datetimepicker.date.DatePickerDialog;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.sinau.simikmiriskina.api.ApiClient;
+import com.sinau.simikmiriskina.api.MahasiswaApiInterface;
+import com.sinau.simikmiriskina.model.LoginRequest;
+import com.sinau.simikmiriskina.model.Mahasiswa;
+import com.sinau.simikmiriskina.model.MahasiswaResponse;
+import com.sinau.simikmiriskina.model.ResultMessage;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class Register extends FragmentActivity implements DatePickerDialog.OnDateSetListener {
     public static final String DATEPICKER_TAG = "datepicker";
-
+    SessionManager session;
     Button register;
-    EditText pass, conpass;
+    EditText pass, conpass,nim,nama,alamat,dateForm,email,agama,semester;
+    RadioGroup gender,jurusan;
+    private RadioButton rbGenderMale;
+    private RadioButton rbGenderFemale;
+
+    private void bindData() {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(ApiClient.URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        MahasiswaApiInterface api = retrofit.create(MahasiswaApiInterface.class);
+
+        Mahasiswa mahasiswa = new Mahasiswa();
+        Call<ResultMessage> call = api.register(mahasiswa);
+
+        call.enqueue(new Callback<ResultMessage>() {
+            @Override
+            public void onResponse(Call<ResultMessage> call, Response<ResultMessage> response) {
+                String message = response.body().getMessage();
+
+                if (message.equals("OK")) {
+                    Gson gson = new Gson();
+                    JsonObject jsonObject = gson.toJsonTree(response.body().getResult()).getAsJsonObject();
+                    Mahasiswa m = gson.fromJson(jsonObject.toString(), Mahasiswa.class);
+
+                    Intent intent = new Intent(getApplicationContext(), Login.class);
+                    session.createSession(m.getId());
+                    startActivity(intent);
+
+                } else {
+                    Toast.makeText(getApplicationContext(), response.body().getResult().toString(), Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResultMessage> call, Throwable t) {
+                t.printStackTrace();
+                Toast.makeText(getApplicationContext(), "Jaringan Error !", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
+        nim = (EditText) findViewById(R.id.input_nim);
+        nama = (EditText) findViewById(R.id.input_name);
+        alamat = (EditText) findViewById(R.id.input_address);
+        dateForm = (EditText) findViewById(R.id.getdate);
+        email = (EditText) findViewById(R.id.input_emai);
+        agama = (EditText) findViewById(R.id.input_religious);
+        semester = (EditText) findViewById(R.id.input_semester);
+
         register = (Button) findViewById(R.id.btn_register);
+
+        gender = (RadioGroup) findViewById(R.id.gender);
+        jurusan = (RadioGroup) findViewById(R.id.jurusan);
 
         final Calendar calendar = Calendar.getInstance();
 
