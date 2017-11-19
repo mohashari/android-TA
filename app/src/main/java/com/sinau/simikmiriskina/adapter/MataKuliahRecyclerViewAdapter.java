@@ -13,11 +13,22 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.sinau.simikmiriskina.R;
+import com.sinau.simikmiriskina.SessionManager;
+import com.sinau.simikmiriskina.api.ApiClient;
+import com.sinau.simikmiriskina.api.JadwalApiInterface;
+import com.sinau.simikmiriskina.model.AddJadwal;
 import com.sinau.simikmiriskina.model.Matakuliah;
+import com.sinau.simikmiriskina.model.ResultMessage;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
-import static android.icu.lang.UCharacter.GraphemeClusterBreak.V;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class MataKuliahRecyclerViewAdapter extends RecyclerView.Adapter<MataKuliahRecyclerViewAdapter.ViewHolder>{
@@ -60,6 +71,9 @@ public class MataKuliahRecyclerViewAdapter extends RecyclerView.Adapter<MataKuli
         private TextView txtSks;
         private TextView txtHari;
 
+        HashMap<String, String> user;
+        SessionManager session ;
+
         public ViewHolder(View itemView) {
             super(itemView);
 
@@ -69,6 +83,9 @@ public class MataKuliahRecyclerViewAdapter extends RecyclerView.Adapter<MataKuli
             txtVersion = (TextView) itemView.findViewById(R.id.txt_version);
             txtSks = (TextView) itemView.findViewById(R.id.txt_sks);
             txtHari = (TextView) itemView.findViewById(R.id.txt_hari);
+
+            session = new SessionManager(itemView.getContext());
+            user = session.getUserDetails();
 
             itemView.setOnClickListener(this);
         }
@@ -85,6 +102,8 @@ public class MataKuliahRecyclerViewAdapter extends RecyclerView.Adapter<MataKuli
                             Toast.makeText(view.getContext(),
                                     "Berhasil di tambah " + txtId.getText().toString(),
                                     Toast.LENGTH_SHORT).show();
+
+                            addJadwal();
                         }
                     })
                     .setNegativeButton("Batal",new DialogInterface.OnClickListener() {
@@ -96,5 +115,43 @@ public class MataKuliahRecyclerViewAdapter extends RecyclerView.Adapter<MataKuli
             AlertDialog alertDialog = alertDialogBuilder.create();
             alertDialog.show();
         }
+
+
+        private void addJadwal(){
+
+            AddJadwal r = new AddJadwal();
+            r.setIdMahasiswa(user.get(SessionManager.kunci_email));
+            r.setIdMataKuliah(txtId.getText().toString());
+
+            Retrofit retrofit = new Retrofit.Builder()
+                    .baseUrl(ApiClient.URL)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
+
+            JadwalApiInterface api = retrofit.create(JadwalApiInterface.class);
+            Call<ResultMessage> call = api.addJadwal(r);
+
+            call.enqueue(new Callback<ResultMessage>() {
+                @Override
+                public void onResponse(Call<ResultMessage> call, Response<ResultMessage> response) {
+                    String message = response.body().getMessage().toString();
+
+                    if(message.equals("OK")){
+                        Toast.makeText(context.getApplicationContext(),
+                                response.body().getResult().toString(), Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(context.getApplicationContext(),
+                                response.body().getResult().toString(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResultMessage> call, Throwable t) {
+                    t.printStackTrace();
+                    Toast.makeText(context.getApplicationContext(), "Jaringan Error", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+
     }
 }

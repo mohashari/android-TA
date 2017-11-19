@@ -16,7 +16,7 @@ public class AddJadwal {
 
     @SerializedName("secure_id_matakuliah")
     @Expose
-    private List<String> idMataKuliah = null;
+    private String idMataKuliah;
 
     public String getIdMahasiswa() {
         return idMahasiswa;
@@ -26,11 +26,11 @@ public class AddJadwal {
         this.idMahasiswa = idMahasiswa;
     }
 
-    public List<String> getIdMataKuliah() {
+    public String getIdMataKuliah() {
         return idMataKuliah;
     }
 
-    public void setIdMataKuliah(List<String> idMataKuliah) {
+    public void setIdMataKuliah(String idMataKuliah) {
         this.idMataKuliah = idMataKuliah;
     }
 }

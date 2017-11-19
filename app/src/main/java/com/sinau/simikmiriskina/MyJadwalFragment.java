@@ -1,9 +1,6 @@
 package com.sinau.simikmiriskina;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,18 +11,13 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
+import com.sinau.simikmiriskina.adapter.JadwalRecyclerViewAdapter;
 import com.sinau.simikmiriskina.adapter.MataKuliahRecyclerViewAdapter;
 import com.sinau.simikmiriskina.api.ApiClient;
 import com.sinau.simikmiriskina.api.JadwalApiInterface;
-import com.sinau.simikmiriskina.api.MahasiswaApiInterface;
 import com.sinau.simikmiriskina.api.MataKuliahApiInterface;
-import com.sinau.simikmiriskina.model.AddJadwal;
-import com.sinau.simikmiriskina.model.LoginRequest;
-import com.sinau.simikmiriskina.model.Mahasiswa;
-import com.sinau.simikmiriskina.model.Matakuliah;
 import com.sinau.simikmiriskina.model.MataKuliahResponse;
+import com.sinau.simikmiriskina.model.Matakuliah;
 import com.sinau.simikmiriskina.model.ResultMessage;
 
 import java.util.ArrayList;
@@ -38,13 +30,12 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-import static android.icu.lang.UCharacter.GraphemeClusterBreak.T;
 
-public class MataKuliahFragment extends Fragment{
+public class MyJadwalFragment extends Fragment {
     private View myView;
 
     private List<Matakuliah> mataKuliahs = new ArrayList<>();
-    private MataKuliahRecyclerViewAdapter viewAdapter;
+    private JadwalRecyclerViewAdapter viewAdapter;
 
     private ProgressBar progressBar;
     private RecyclerView recyclerView;
@@ -53,9 +44,10 @@ public class MataKuliahFragment extends Fragment{
     HashMap<String, String> user;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        myView = inflater.inflate(R.layout.fragment_mata_kuliah, container, false);
+
+        myView = inflater.inflate(R.layout.fragment_my_jadwal, container, false);
 
         progressBar = (ProgressBar) myView.findViewById(R.id.progress_bar);
         recyclerView = (RecyclerView) myView.findViewById(R.id.recycleView);
@@ -67,14 +59,9 @@ public class MataKuliahFragment extends Fragment{
 
         loadDataPasien();
 
-
         return myView;
     }
 
-    @Override
-    public void onResume(){
-        super.onResume();
-    }
 
     private void loadDataPasien(){
         Retrofit retrofit = new Retrofit.Builder()
@@ -83,7 +70,7 @@ public class MataKuliahFragment extends Fragment{
                 .build();
 
         MataKuliahApiInterface api = retrofit.create(MataKuliahApiInterface.class);
-        Call<MataKuliahResponse> call = api.view();
+        Call<MataKuliahResponse> call = api.getMyJadwal(user.get(SessionManager.kunci_email));
 
         call.enqueue(new Callback<MataKuliahResponse>() {
             @Override
@@ -93,7 +80,7 @@ public class MataKuliahFragment extends Fragment{
 
                 if(message.equals("OK")){
                     mataKuliahs = response.body().getResult();
-                    viewAdapter = new MataKuliahRecyclerViewAdapter(getActivity(), mataKuliahs);
+                    viewAdapter = new JadwalRecyclerViewAdapter(getActivity(), mataKuliahs);
                     recyclerView.setAdapter(viewAdapter);
                 }
             }
