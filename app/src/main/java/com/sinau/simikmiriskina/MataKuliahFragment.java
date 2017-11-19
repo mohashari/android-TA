@@ -82,10 +82,11 @@ public class MataKuliahFragment extends Fragment{
 
                 JadwalApiInterface api = retrofit.create(JadwalApiInterface.class);
 
-                String idMahasiswa = user.get(SessionManager.kunci_email);
-                List<String> idMatakuliah = ArrayGetMatkul.idMatkul;
+                AddJadwal addJadwal = new AddJadwal();
+                addJadwal.setIdMahasiswa(user.get(SessionManager.kunci_email));
+                addJadwal.setIdMataKuliah(ArrayGetMatkul.idMatkul);
 
-                Call<ResultMessage> call = api.login(idMahasiswa, idMatakuliah);
+                Call<ResultMessage> call = api.login(addJadwal);
                 call.enqueue(new Callback<ResultMessage>() {
                     @Override
                     public void onResponse(Call<ResultMessage> call, Response<ResultMessage> response) {

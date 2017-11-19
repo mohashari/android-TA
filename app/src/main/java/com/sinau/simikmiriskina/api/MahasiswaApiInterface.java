@@ -24,10 +24,15 @@ public interface MahasiswaApiInterface {
     @POST("mahasiswa/login")
     Call<ResultMessage> login(@Body LoginRequest loginRequest);
 
-
-    @GET("mahasiswa/{id}")
     @Headers("Content-Type: application/json")
+    @GET("mahasiswa/{id}")
     Call<MahasiswaResponse> getMahasiswa(@Path("id") String secureId);
+
+
+    @Headers("Content-Type: application/json")
+    @GET("mahasiswa/forgot-password?email={email}")
+    Call<ResultMessage> getForgotPassword(@Path("email") String email);
+
 
 
 }

@@ -1,7 +1,6 @@
 package com.sinau.simikmiriskina.api;
 
 import com.sinau.simikmiriskina.model.AddJadwal;
-import com.sinau.simikmiriskina.model.LoginRequest;
 import com.sinau.simikmiriskina.model.ResultMessage;
 
 import java.util.List;
@@ -15,5 +14,5 @@ public interface JadwalApiInterface {
 
     @Headers("Content-Type: application/json")
     @POST("mahasiswa/jadwal")
-    Call<ResultMessage> login(String idMahasiswa, List<String> idMatkul);
+    Call<ResultMessage> login(@Body AddJadwal addJadwal);
 }
