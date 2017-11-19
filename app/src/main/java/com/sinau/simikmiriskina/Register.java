@@ -2,6 +2,8 @@ package com.sinau.simikmiriskina;
 
 import android.content.Intent;
 import android.icu.util.Calendar;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -33,8 +35,8 @@ public class Register extends FragmentActivity implements DatePickerDialog.OnDat
     public static final String DATEPICKER_TAG = "datepicker";
     SessionManager session;
     Button register;
-    EditText pass, conpass,nim,nama,alamat,dateForm,email,agama,semester;
-    RadioGroup gender,jurusan;
+    EditText pass, conpass, nim, nama, alamat, dateForm, email, agama, semester,phone;
+    RadioGroup gender, jurusan;
     private RadioButton rbGenderMale;
     private RadioButton rbGenderFemale;
 
@@ -47,6 +49,17 @@ public class Register extends FragmentActivity implements DatePickerDialog.OnDat
         MahasiswaApiInterface api = retrofit.create(MahasiswaApiInterface.class);
 
         Mahasiswa mahasiswa = new Mahasiswa();
+
+        mahasiswa.setNim(nim.getText().toString());
+        mahasiswa.setName(nama.getText().toString());
+        mahasiswa.setPassword(pass.getText().toString());
+        mahasiswa.setAddress(alamat.getText().toString());
+        mahasiswa.setDateOfBirth(dateForm.getText().toString());
+        mahasiswa.setEmail(email.getText().toString());
+        mahasiswa.setPhone(phone.getText().toString());
+        mahasiswa.setReligious(agama.getText().toString());
+        mahasiswa.setGender("M");
+        mahasiswa.setJurusan("Teknik Komputer");
         Call<ResultMessage> call = api.register(mahasiswa);
 
         call.enqueue(new Callback<ResultMessage>() {
@@ -61,6 +74,9 @@ public class Register extends FragmentActivity implements DatePickerDialog.OnDat
 
                     Intent intent = new Intent(getApplicationContext(), Login.class);
                     session.createSession(m.getId());
+                    Toast.makeText(getApplicationContext(), "Anda Berhasil Register",
+                            Toast.LENGTH_SHORT).show();
+
                     startActivity(intent);
 
                 } else {
@@ -76,6 +92,7 @@ public class Register extends FragmentActivity implements DatePickerDialog.OnDat
         });
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,6 +105,7 @@ public class Register extends FragmentActivity implements DatePickerDialog.OnDat
         email = (EditText) findViewById(R.id.input_emai);
         agama = (EditText) findViewById(R.id.input_religious);
         semester = (EditText) findViewById(R.id.input_semester);
+        phone = (EditText) findViewById(R.id.input_telepon);
 
         register = (Button) findViewById(R.id.btn_register);
 
@@ -123,11 +141,8 @@ public class Register extends FragmentActivity implements DatePickerDialog.OnDat
                     Toast.makeText(getApplicationContext(), "Password tidak sama",
                             Toast.LENGTH_SHORT).show();
                 } else {
-                    Intent intent = new Intent(Register.this, Login.class);
-                    Toast.makeText(getApplicationContext(), "Anda Berhasil Register",
-                            Toast.LENGTH_SHORT).show();
-                    startActivity(intent);
-                        }
+                    bindData();
+                }
             }
         });
     }

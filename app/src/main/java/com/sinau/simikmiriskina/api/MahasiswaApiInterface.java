@@ -36,7 +36,7 @@ public interface MahasiswaApiInterface {
     Call<ResultMessage> getForgotPassword(@Query("email") String email);
 
     @Headers("Content-Type: application/json")
-    @GET("mahasiswa")
+    @POST("mahasiswa")
     Call<ResultMessage> register(@Body Mahasiswa mahasiswa);
 
 }
