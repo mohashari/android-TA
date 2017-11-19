@@ -5,10 +5,28 @@ public class Matakuliah {
     private String id;
     private String name;
     private String semester;
-    private String version;
+    private String version;;
+    private String sks;
+    private String hari;
 
     public String getId() {
         return id;
+    }
+
+    public String getSks() {
+        return sks;
+    }
+
+    public void setSks(String sks) {
+        this.sks = sks;
+    }
+
+    public String getHari() {
+        return hari;
+    }
+
+    public void setHari(String hari) {
+        this.hari = hari;
     }
 
     public void setId(String id) {

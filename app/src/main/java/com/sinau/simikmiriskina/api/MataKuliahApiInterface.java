@@ -7,7 +7,7 @@ import retrofit2.http.GET;
 
 public interface MataKuliahApiInterface {
 
-    @GET("matakuliah")
+    @GET("matakuliah/list-jadwal")
     Call<MataKuliahResponse> view();
 
 }

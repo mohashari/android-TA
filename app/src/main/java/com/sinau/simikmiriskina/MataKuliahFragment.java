@@ -21,7 +21,6 @@ import com.sinau.simikmiriskina.api.ApiClient;
 import com.sinau.simikmiriskina.api.JadwalApiInterface;
 import com.sinau.simikmiriskina.api.MahasiswaApiInterface;
 import com.sinau.simikmiriskina.api.MataKuliahApiInterface;
-import com.sinau.simikmiriskina.common.ArrayGetMatkul;
 import com.sinau.simikmiriskina.model.AddJadwal;
 import com.sinau.simikmiriskina.model.LoginRequest;
 import com.sinau.simikmiriskina.model.Mahasiswa;
@@ -38,8 +37,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-
-import static android.icu.lang.UCharacter.GraphemeClusterBreak.T;
 
 public class MataKuliahFragment extends Fragment{
     private View myView;
@@ -70,49 +67,6 @@ public class MataKuliahFragment extends Fragment{
 
         loadDataPasien();
 
-        fab = (FloatingActionButton) myView.findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(ApiClient.URL)
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .build();
-
-                JadwalApiInterface api = retrofit.create(JadwalApiInterface.class);
-
-                String idMahasiswa = user.get(SessionManager.kunci_email);
-                List<String> idMatakuliah = ArrayGetMatkul.idMatkul;
-
-                AddJadwal jadwal = new AddJadwal();
-                jadwal.setIdMahasiswa(idMahasiswa);
-                jadwal.setIdMataKuliah(ArrayGetMatkul.idMatkul);
-
-                Call<ResultMessage> call = api.login(jadwal);
-                call.enqueue(new Callback<ResultMessage>() {
-                    @Override
-                    public void onResponse(Call<ResultMessage> call, Response<ResultMessage> response) {
-                        String message = response.body().getMessage();
-
-                        if(message.equals("OK")){
-                            Toast.makeText(getActivity().getApplicationContext(),
-                                    response.body().getResult().toString(),
-                                    Toast.LENGTH_SHORT).show();
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<ResultMessage> call, Throwable t) {
-                        t.printStackTrace();
-                        Toast.makeText(getActivity().getApplicationContext(),
-                                "GAGAL",
-                                Toast.LENGTH_SHORT).show();
-
-                    }
-                });
-            }
-        });
 
         return myView;
     }
