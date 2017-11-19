@@ -1,6 +1,9 @@
 package com.sinau.simikmiriskina.adapter;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,10 +13,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.sinau.simikmiriskina.R;
-import com.sinau.simikmiriskina.common.ArrayGetMatkul;
 import com.sinau.simikmiriskina.model.Matakuliah;
 
 import java.util.List;
+
+import static android.icu.lang.UCharacter.GraphemeClusterBreak.V;
 
 
 public class MataKuliahRecyclerViewAdapter extends RecyclerView.Adapter<MataKuliahRecyclerViewAdapter.ViewHolder>{
@@ -33,11 +37,13 @@ public class MataKuliahRecyclerViewAdapter extends RecyclerView.Adapter<MataKuli
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, int position) {
         Matakuliah p = mataKuliahs.get(position);
         holder.txtId.setText(p.getId());
         holder.txtNama.setText(p.getName());
         holder.txtSemester.setText(p.getSemester());
+        holder.txtSks.setText(p.getSks());
+        holder.txtHari.setText(p.getHari());
         holder.txtVersion.setText(p.getVersion());
     }
 
@@ -51,7 +57,8 @@ public class MataKuliahRecyclerViewAdapter extends RecyclerView.Adapter<MataKuli
         private TextView txtNama;
         private TextView txtSemester;
         private TextView txtVersion;
-        private CheckBox chId;
+        private TextView txtSks;
+        private TextView txtHari;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -60,28 +67,34 @@ public class MataKuliahRecyclerViewAdapter extends RecyclerView.Adapter<MataKuli
             txtNama = (TextView) itemView.findViewById(R.id.txt_name);
             txtSemester = (TextView) itemView.findViewById(R.id.txt_semester);
             txtVersion = (TextView) itemView.findViewById(R.id.txt_version);
-            chId = (CheckBox) itemView.findViewById(R.id.ch_id_sem);
+            txtSks = (TextView) itemView.findViewById(R.id.txt_sks);
+            txtHari = (TextView) itemView.findViewById(R.id.txt_hari);
 
             itemView.setOnClickListener(this);
-
-            chId.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    String id = txtId.getText().toString();
-                    String nama = txtNama.getText().toString();
-
-                    Toast.makeText(view.getContext(),
-                            txtId.getText().toString() + ", " +txtNama.getText().toString(),
-                            Toast.LENGTH_SHORT).show();
-
-                    ArrayGetMatkul.getGarage(id);
-                }
-            });
-
         }
 
         @Override
-        public void onClick(View view) {
+        public void onClick(final View view) {
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(view.getContext());
+            alertDialogBuilder.setTitle("Konfirmasi");
+            alertDialogBuilder
+                    .setMessage("Apakah anda yakin akan mengambil mata kuliah ini ?")
+                    .setCancelable(false)
+                    .setPositiveButton("Tambah",new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog,int id) {
+                            Toast.makeText(view.getContext(),
+                                    "Berhasil di tambah " + txtId.getText().toString(),
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    })
+                    .setNegativeButton("Batal",new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog,int id) {
+                            dialog.cancel();
+                        }
+                    });
+
+            AlertDialog alertDialog = alertDialogBuilder.create();
+            alertDialog.show();
         }
     }
 }

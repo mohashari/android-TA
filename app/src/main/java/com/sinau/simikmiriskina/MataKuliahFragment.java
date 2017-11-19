@@ -21,7 +21,6 @@ import com.sinau.simikmiriskina.api.ApiClient;
 import com.sinau.simikmiriskina.api.JadwalApiInterface;
 import com.sinau.simikmiriskina.api.MahasiswaApiInterface;
 import com.sinau.simikmiriskina.api.MataKuliahApiInterface;
-import com.sinau.simikmiriskina.common.ArrayGetMatkul;
 import com.sinau.simikmiriskina.model.AddJadwal;
 import com.sinau.simikmiriskina.model.LoginRequest;
 import com.sinau.simikmiriskina.model.Mahasiswa;
@@ -70,46 +69,6 @@ public class MataKuliahFragment extends Fragment{
 
         loadDataPasien();
 
-        fab = (FloatingActionButton) myView.findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(ApiClient.URL)
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .build();
-
-                JadwalApiInterface api = retrofit.create(JadwalApiInterface.class);
-
-                AddJadwal addJadwal = new AddJadwal();
-                addJadwal.setIdMahasiswa(user.get(SessionManager.kunci_email));
-                addJadwal.setIdMataKuliah(ArrayGetMatkul.idMatkul);
-
-                Call<ResultMessage> call = api.login(addJadwal);
-                call.enqueue(new Callback<ResultMessage>() {
-                    @Override
-                    public void onResponse(Call<ResultMessage> call, Response<ResultMessage> response) {
-                        String message = response.body().getMessage();
-
-                        if(message.equals("OK")){
-                            Toast.makeText(getActivity().getApplicationContext(),
-                                    response.body().getResult().toString(),
-                                    Toast.LENGTH_SHORT).show();
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<ResultMessage> call, Throwable t) {
-                        t.printStackTrace();
-                        Toast.makeText(getActivity().getApplicationContext(),
-                                "GAGAL",
-                                Toast.LENGTH_SHORT).show();
-
-                    }
-                });
-            }
-        });
 
         return myView;
     }
