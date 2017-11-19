@@ -35,7 +35,7 @@ public class Register extends FragmentActivity implements DatePickerDialog.OnDat
     public static final String DATEPICKER_TAG = "datepicker";
     SessionManager session;
     Button register;
-    EditText pass, conpass, nim, nama, alamat, dateForm, email, agama, semester,phone;
+    EditText pass, conpass, nim, nama, alamat, dateForm, email, agama, semester, phone;
     RadioGroup gender, jurusan;
     private RadioButton rbGenderMale;
     private RadioButton rbGenderFemale;
@@ -58,6 +58,7 @@ public class Register extends FragmentActivity implements DatePickerDialog.OnDat
         mahasiswa.setEmail(email.getText().toString());
         mahasiswa.setPhone(phone.getText().toString());
         mahasiswa.setReligious(agama.getText().toString());
+        mahasiswa.setSemester(semester.getText().toString());
         mahasiswa.setGender("M");
         mahasiswa.setJurusan("Teknik Komputer");
         Call<ResultMessage> call = api.register(mahasiswa);
@@ -68,15 +69,9 @@ public class Register extends FragmentActivity implements DatePickerDialog.OnDat
                 String message = response.body().getMessage();
 
                 if (message.equals("OK")) {
-                    Gson gson = new Gson();
-                    JsonObject jsonObject = gson.toJsonTree(response.body().getResult()).getAsJsonObject();
-                    Mahasiswa m = gson.fromJson(jsonObject.toString(), Mahasiswa.class);
-
                     Intent intent = new Intent(getApplicationContext(), Login.class);
-                    session.createSession(m.getId());
                     Toast.makeText(getApplicationContext(), "Anda Berhasil Register",
                             Toast.LENGTH_SHORT).show();
-
                     startActivity(intent);
 
                 } else {

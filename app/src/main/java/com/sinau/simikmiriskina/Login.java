@@ -59,9 +59,9 @@ public class Login extends AppCompatActivity {
                     Gson gson = new Gson();
                     JsonObject jsonObject = gson.toJsonTree(response.body().getResult()).getAsJsonObject();
                     Mahasiswa m = gson.fromJson(jsonObject.toString(), Mahasiswa.class);
+                    session.createSession(m.getId());
 
                     Intent intent = new Intent(Login.this, Home.class);
-                    session.createSession(m.getId());
                     startActivity(intent);
                     LOADINGSPLASH();
                 } else {
