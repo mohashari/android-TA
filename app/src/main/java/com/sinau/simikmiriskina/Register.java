@@ -59,7 +59,13 @@ public class Register extends FragmentActivity implements DatePickerDialog.OnDat
         mahasiswa.setPhone(phone.getText().toString());
         mahasiswa.setReligious(agama.getText().toString());
         mahasiswa.setSemester(semester.getText().toString());
-        mahasiswa.setGender("M");
+
+        if(rbGenderMale.isChecked()){
+            mahasiswa.setGender("M");
+        } else if(rbGenderFemale.isChecked()){
+            mahasiswa.setGender("F");
+        }
+
         mahasiswa.setJurusan("Teknik Komputer");
         Call<ResultMessage> call = api.register(mahasiswa);
 
@@ -106,6 +112,10 @@ public class Register extends FragmentActivity implements DatePickerDialog.OnDat
 
         gender = (RadioGroup) findViewById(R.id.gender);
         jurusan = (RadioGroup) findViewById(R.id.jurusan);
+        rbGenderMale = (RadioButton) findViewById(R.id.gender_male);
+        rbGenderFemale = (RadioButton) findViewById(R.id.gender_female);
+
+        rbGenderMale.setChecked(true);
 
         final Calendar calendar = Calendar.getInstance();
 
