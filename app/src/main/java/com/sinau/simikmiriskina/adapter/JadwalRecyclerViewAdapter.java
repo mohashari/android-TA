@@ -90,7 +90,60 @@ public class JadwalRecyclerViewAdapter extends RecyclerView.Adapter<JadwalRecycl
 
         @Override
         public void onClick(final View view) {
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(view.getContext());
+            alertDialogBuilder.setTitle("Konfirmasi");
+            alertDialogBuilder
+                    .setMessage("Apakah anda yakin akan menghapus mata kuliah ini ?")
+                    .setCancelable(false)
+                    .setPositiveButton("Tambah",new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog,int id) {
+                            Toast.makeText(context,
+                                    user.get(SessionManager.kunci_email) +" dan "+ txtId.getText().toString(),
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    })
+                    .setNegativeButton("Batal",new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog,int id) {
+                            dialog.cancel();
+                        }
+                    });
 
+            AlertDialog alertDialog = alertDialogBuilder.create();
+            alertDialog.show();
+        }
+
+        public void hapusJadwal(){
+            Retrofit retrofit = new Retrofit.Builder()
+                    .baseUrl(ApiClient.URL)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
+
+            JadwalApiInterface api = retrofit.create(JadwalApiInterface.class);
+            Call<ResultMessage> call = api.delete(
+                    user.get(SessionManager.kunci_email), txtId.getText().toString()
+            );
+
+            call.enqueue(new Callback<ResultMessage>() {
+                @Override
+                public void onResponse(Call<ResultMessage> call, Response<ResultMessage> response) {
+                    String message = response.body().getMessage().toString();
+
+                    if(message.equals("OK")){
+                        Toast.makeText(context,
+                                "Matakuliah berhasil dihapus",
+                                Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(context.getApplicationContext(),
+                                response.body().getResult().toString(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResultMessage> call, Throwable t) {
+                    t.printStackTrace();
+                    Toast.makeText(context.getApplicationContext(), "Jaringan Error", Toast.LENGTH_SHORT).show();
+                }
+            });
         }
 
     }
