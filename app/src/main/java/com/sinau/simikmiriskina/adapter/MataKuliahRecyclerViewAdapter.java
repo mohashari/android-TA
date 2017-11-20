@@ -99,10 +99,6 @@ public class MataKuliahRecyclerViewAdapter extends RecyclerView.Adapter<MataKuli
                     .setCancelable(false)
                     .setPositiveButton("Tambah",new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog,int id) {
-                            Toast.makeText(view.getContext(),
-                                    "Berhasil di tambah " + txtId.getText().toString(),
-                                    Toast.LENGTH_SHORT).show();
-
                             addJadwal();
                         }
                     })
@@ -137,8 +133,9 @@ public class MataKuliahRecyclerViewAdapter extends RecyclerView.Adapter<MataKuli
                     String message = response.body().getMessage().toString();
 
                     if(message.equals("OK")){
-                        Toast.makeText(context.getApplicationContext(),
-                                response.body().getResult().toString(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context,
+                                "Matakuliah berhasil ditambahkan",
+                                Toast.LENGTH_SHORT).show();
                     } else {
                         Toast.makeText(context.getApplicationContext(),
                                 response.body().getResult().toString(), Toast.LENGTH_SHORT).show();

@@ -21,5 +21,11 @@ public interface JadwalApiInterface {
     @POST("mahasiswa/jadwal")
     Call<ResultMessage> addJadwal(@Body AddJadwal addJadwal);
 
+    @FormUrlEncoded
+    @POST("mahasiswa/jadwal-delete.php")
+    Call<ResultMessage> delete(
+            @Field("secure_id_mahasiswa") String idMahasiswa,
+            @Field("secure_id_matakuliah") String idMatakuliah);
+
 
 }
