@@ -167,11 +167,13 @@
                     android:textStyle="bold" />
 
                 <RadioButton
+                    android:id="@+id/akutansi"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Akutansi Komputer" />
 
                 <RadioButton
+                    android:id="@+id/teknik_komputer"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Teknik Komputer" />

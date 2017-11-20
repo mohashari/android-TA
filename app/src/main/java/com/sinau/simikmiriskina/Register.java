@@ -39,6 +39,10 @@ public class Register extends FragmentActivity implements DatePickerDialog.OnDat
     RadioGroup gender, jurusan;
     private RadioButton rbGenderMale;
     private RadioButton rbGenderFemale;
+    private RadioButton rbJurusanAkutansi;
+    private RadioButton rbJurusanTeknik;
+
+
 
     private void bindData() {
         Retrofit retrofit = new Retrofit.Builder()
@@ -58,7 +62,7 @@ public class Register extends FragmentActivity implements DatePickerDialog.OnDat
         mahasiswa.setEmail(email.getText().toString());
         mahasiswa.setPhone(phone.getText().toString());
         mahasiswa.setReligious(agama.getText().toString());
-        mahasiswa.setSemester(semester.getText().toString());
+        mahasiswa.setSemester(Integer.valueOf(semester.getText().toString()));
 
         if(rbGenderMale.isChecked()){
             mahasiswa.setGender("M");
@@ -66,7 +70,11 @@ public class Register extends FragmentActivity implements DatePickerDialog.OnDat
             mahasiswa.setGender("F");
         }
 
-        mahasiswa.setJurusan("Teknik Komputer");
+        if(rbJurusanAkutansi.isChecked()){
+            mahasiswa.setJurusan("Akutansi Komputer");
+        } else if(rbJurusanTeknik.isChecked()){
+            mahasiswa.setJurusan("Tenik Komputer");
+        }
         Call<ResultMessage> call = api.register(mahasiswa);
 
         call.enqueue(new Callback<ResultMessage>() {
@@ -114,7 +122,8 @@ public class Register extends FragmentActivity implements DatePickerDialog.OnDat
         jurusan = (RadioGroup) findViewById(R.id.jurusan);
         rbGenderMale = (RadioButton) findViewById(R.id.gender_male);
         rbGenderFemale = (RadioButton) findViewById(R.id.gender_female);
-
+        rbJurusanAkutansi= (RadioButton) findViewById(R.id.akutansi);
+        rbJurusanTeknik= (RadioButton) findViewById(R.id.teknik_komputer);
         rbGenderMale.setChecked(true);
 
         final Calendar calendar = Calendar.getInstance();

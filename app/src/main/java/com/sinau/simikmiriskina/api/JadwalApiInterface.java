@@ -9,11 +9,13 @@ import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 
 public interface JadwalApiInterface {
 
@@ -21,11 +23,9 @@ public interface JadwalApiInterface {
     @POST("mahasiswa/jadwal")
     Call<ResultMessage> addJadwal(@Body AddJadwal addJadwal);
 
-    @FormUrlEncoded
-    @POST("mahasiswa/jadwal-delete.php")
-    Call<ResultMessage> delete(
-            @Field("secure_id_mahasiswa") String idMahasiswa,
-            @Field("secure_id_matakuliah") String idMatakuliah);
+    @Headers("Content-Type: application/json")
+    @DELETE("jadwal/{id}")
+    Call<ResultMessage> delete(@Path("id") String id);
 
 
 }

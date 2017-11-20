@@ -100,7 +100,7 @@ public class ProfileFragment extends Fragment {
                     txtEmail.setText(m.getEmail());
                     txtReligious.setText(m.getReligious());
                     txtPassword.setText(m.getPassword());
-                    txtSemester.setText(m.getSemester().toString());
+                    txtSemester.setText(String.valueOf(m.getSemester()));
                     txtJurusan.setText(m.getJurusan());
                     txtPhone.setText(m.getPhone().toString());
                     txtPaying.setText(m.getPaying());

@@ -53,6 +53,7 @@ public class JadwalRecyclerViewAdapter extends RecyclerView.Adapter<JadwalRecycl
         holder.txtSks.setText(p.getSks());
         holder.txtHari.setText(p.getHari());
         holder.txtVersion.setText(p.getVersion());
+        holder.txtSecureID.setText(p.getSecureIdJadwal());
     }
 
     @Override
@@ -67,6 +68,7 @@ public class JadwalRecyclerViewAdapter extends RecyclerView.Adapter<JadwalRecycl
         private TextView txtVersion;
         private TextView txtSks;
         private TextView txtHari;
+        private TextView txtSecureID;
 
 
         HashMap<String, String> user;
@@ -81,7 +83,7 @@ public class JadwalRecyclerViewAdapter extends RecyclerView.Adapter<JadwalRecycl
             txtVersion = (TextView) itemView.findViewById(R.id.txt_version);
             txtSks = (TextView) itemView.findViewById(R.id.txt_sks);
             txtHari = (TextView) itemView.findViewById(R.id.txt_hari);
-
+            txtSecureID = (TextView) itemView.findViewById(R.id.txt_secureId);
             session = new SessionManager(itemView.getContext());
             user = session.getUserDetails();
 
@@ -95,11 +97,12 @@ public class JadwalRecyclerViewAdapter extends RecyclerView.Adapter<JadwalRecycl
             alertDialogBuilder
                     .setMessage("Apakah anda yakin akan menghapus mata kuliah ini ?")
                     .setCancelable(false)
-                    .setPositiveButton("Tambah",new DialogInterface.OnClickListener() {
+                    .setPositiveButton("Hapus",new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog,int id) {
-                            Toast.makeText(context,
-                                    user.get(SessionManager.kunci_email) +" dan "+ txtId.getText().toString(),
-                                    Toast.LENGTH_SHORT).show();
+                            hapusJadwal();
+//                            Toast.makeText(context,
+//                                    user.get(SessionManager.kunci_email) +" dan "+ txtId.getText().toString(),
+//                                    Toast.LENGTH_SHORT).show();
                         }
                     })
                     .setNegativeButton("Batal",new DialogInterface.OnClickListener() {
@@ -119,9 +122,7 @@ public class JadwalRecyclerViewAdapter extends RecyclerView.Adapter<JadwalRecycl
                     .build();
 
             JadwalApiInterface api = retrofit.create(JadwalApiInterface.class);
-            Call<ResultMessage> call = api.delete(
-                    user.get(SessionManager.kunci_email), txtId.getText().toString()
-            );
+            Call<ResultMessage> call = api.delete(txtSecureID.getText().toString());
 
             call.enqueue(new Callback<ResultMessage>() {
                 @Override
@@ -130,7 +131,7 @@ public class JadwalRecyclerViewAdapter extends RecyclerView.Adapter<JadwalRecycl
 
                     if(message.equals("OK")){
                         Toast.makeText(context,
-                                "Matakuliah berhasil dihapus",
+                                "Matakuliah berhasil dihapus "+txtNama.getText().toString(),
                                 Toast.LENGTH_SHORT).show();
                     } else {
                         Toast.makeText(context.getApplicationContext(),

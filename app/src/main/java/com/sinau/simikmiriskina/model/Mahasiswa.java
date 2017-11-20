@@ -1,5 +1,7 @@
 package com.sinau.simikmiriskina.model;
 
+import android.content.Intent;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -17,7 +19,7 @@ public class Mahasiswa {
     private String email;
     private String religious;
     private String password;
-    private String semester;
+    private Integer semester;
     private String jurusan;
     private String phone;
     private String paying;
@@ -98,11 +100,11 @@ public class Mahasiswa {
         this.password = password;
     }
 
-    public String getSemester() {
+    public Integer getSemester() {
         return semester;
     }
 
-    public void setSemester(String semester) {
+    public void setSemester(Integer semester) {
         this.semester = semester;
     }
 
