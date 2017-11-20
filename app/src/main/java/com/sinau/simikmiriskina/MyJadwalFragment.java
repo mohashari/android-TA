@@ -2,6 +2,7 @@ package com.sinau.simikmiriskina;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -37,6 +38,8 @@ public class MyJadwalFragment extends Fragment {
     private List<Matakuliah> mataKuliahs = new ArrayList<>();
     private JadwalRecyclerViewAdapter viewAdapter;
 
+    private SwipeRefreshLayout swipeRefresh;
+
     private ProgressBar progressBar;
     private RecyclerView recyclerView;
 
@@ -47,11 +50,28 @@ public class MyJadwalFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+
         myView = inflater.inflate(R.layout.fragment_my_jadwal, container, false);
 
         progressBar = (ProgressBar) myView.findViewById(R.id.progress_bar);
         recyclerView = (RecyclerView) myView.findViewById(R.id.recycleView);
+        swipeRefresh = (SwipeRefreshLayout) myView.findViewById(R.id.swiperefresh);
 
+        swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                refreshItem();
+            }
+
+            private void refreshItem() {
+                loadDataPasien();
+                onLoadItem();
+            }
+
+            private void onLoadItem() {
+                swipeRefresh.setRefreshing(false);
+            }
+        });
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
