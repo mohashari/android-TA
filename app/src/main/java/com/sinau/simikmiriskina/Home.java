@@ -1,6 +1,7 @@
 package com.sinau.simikmiriskina;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
@@ -74,6 +75,10 @@ public class Home extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Intent i = new Intent(getApplicationContext(), Login.class );
+            session.logout();
+            startActivity(i);
+            finish();
             return true;
         }
 
