@@ -57,6 +57,9 @@ public class MyJadwalFragment extends Fragment {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(viewAdapter);
 
+        session = new SessionManager(myView.getContext());
+        user = session.getUserDetails();
+
         loadDataPasien();
 
         return myView;
