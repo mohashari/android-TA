@@ -124,7 +124,9 @@ public class Register extends FragmentActivity implements DatePickerDialog.OnDat
         rbGenderFemale = (RadioButton) findViewById(R.id.gender_female);
         rbJurusanAkutansi= (RadioButton) findViewById(R.id.akutansi);
         rbJurusanTeknik= (RadioButton) findViewById(R.id.teknik_komputer);
+
         rbGenderMale.setChecked(true);
+        rbJurusanTeknik.setChecked(true);
 
         final Calendar calendar = Calendar.getInstance();
 
