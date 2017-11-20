@@ -93,6 +93,10 @@ public class Home extends AppCompatActivity
 
         } else if (id == R.id.nav_jadwal) {
 
+            fragmentManager.beginTransaction()
+                    .replace(R.id.content_frame, new MyJadwalFragment())
+                    .commit();
+
         } else if (id == R.id.nav_ambilKelas) {
             fragmentManager.beginTransaction()
                     .replace(R.id.content_frame, new MataKuliahFragment())

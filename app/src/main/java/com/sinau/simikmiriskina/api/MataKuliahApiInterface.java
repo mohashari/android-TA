@@ -6,6 +6,7 @@ import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
+import retrofit2.http.Query;
 
 public interface MataKuliahApiInterface {
 
@@ -15,6 +16,6 @@ public interface MataKuliahApiInterface {
 
     @Headers("Content-Type: application/json")
     @GET("mahasiswa/my-jadwal")
-    Call<MataKuliahResponse> getMyJadwal(@Field("id") String search);
+    Call<MataKuliahResponse> getMyJadwal(@Query("id") String search);
 
 }
