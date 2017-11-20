@@ -12,6 +12,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Headers;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -38,5 +39,10 @@ public interface MahasiswaApiInterface {
     @Headers("Content-Type: application/json")
     @POST("mahasiswa")
     Call<ResultMessage> register(@Body Mahasiswa mahasiswa);
+
+    @Headers("Content-Type: application/json")
+    @PUT("mahasiswa/{id}")
+    Call<ResultMessage> update(@Path("id") String secureId,
+                               @Body Mahasiswa mahasiswa);
 
 }
