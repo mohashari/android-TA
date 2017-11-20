@@ -100,9 +100,9 @@ public class ProfileFragment extends Fragment {
                     txtEmail.setText(m.getEmail());
                     txtReligious.setText(m.getReligious());
                     txtPassword.setText(m.getPassword());
-                    txtSemester.setText(m.getSemester());
+                    txtSemester.setText(m.getSemester().toString());
                     txtJurusan.setText(m.getJurusan());
-                    txtPhone.setText(m.getPhone());
+                    txtPhone.setText(m.getPhone().toString());
                     txtPaying.setText(m.getPaying());
 
                     if(m.getGender().toString().equals("male")){

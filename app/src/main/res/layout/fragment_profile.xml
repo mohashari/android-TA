@@ -44,6 +44,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="ID"
+                            android:visibility="gone"
                             android:enabled="false"
                             />
                     </android.support.design.widget.TextInputLayout>
@@ -149,7 +150,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="Semester"
-                            android:enabled="false"
+                            android:inputType="number"
+                            android:enabled="true"
                             />
                     </android.support.design.widget.TextInputLayout>
 
@@ -186,6 +188,7 @@
                             android:id="@+id/edit_paying"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:visibility="gone"
                             android:hint="Paying"
                             />
                     </android.support.design.widget.TextInputLayout>
@@ -198,6 +201,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="Version"
+                            android:visibility="gone"
                             />
                     </android.support.design.widget.TextInputLayout>
                 </LinearLayout>

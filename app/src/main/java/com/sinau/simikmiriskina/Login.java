@@ -61,8 +61,8 @@ public class Login extends AppCompatActivity {
                     Mahasiswa m = gson.fromJson(jsonObject.toString(), Mahasiswa.class);
                     session.createSession(m.getId());
 
-                    Intent intent = new Intent(Login.this, Home.class);
-                    startActivity(intent);
+//                    Intent intent = new Intent(Login.this, Home.class);
+//                    startActivity(intent);
                     LOADINGSPLASH();
                 } else {
                     Toast.makeText(getApplicationContext(), response.body().getResult().toString(), Toast.LENGTH_SHORT).show();

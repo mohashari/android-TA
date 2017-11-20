@@ -8,6 +8,7 @@ public class Matakuliah {
     private String version;;
     private String sks;
     private String hari;
+    private String secureIdJadwal;
 
     public String getId() {
         return id;
@@ -56,4 +57,8 @@ public class Matakuliah {
     public void setVersion(String version) {
         this.version = version;
     }
+
+    public String getSecureIdJadwal(){return secureIdJadwal;}
+
+    public void setSecureIdJadwal(String secureIdJadwal){this.secureIdJadwal = secureIdJadwal;}
 }

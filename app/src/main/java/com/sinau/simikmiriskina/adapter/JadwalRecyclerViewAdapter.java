@@ -68,6 +68,7 @@ public class JadwalRecyclerViewAdapter extends RecyclerView.Adapter<JadwalRecycl
         private TextView txtSks;
         private TextView txtHari;
 
+
         HashMap<String, String> user;
         SessionManager session ;
 
