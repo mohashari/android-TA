@@ -7,12 +7,14 @@ import android.os.Bundle;
 import android.view.Window;
 
 public class SpalshScreen extends AppCompatActivity {
+    SessionManager sessionManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_spalsh_screen);
 
+        sessionManager = new SessionManager(getApplicationContext());
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
@@ -24,8 +26,7 @@ public class SpalshScreen extends AppCompatActivity {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 } finally {
-                    Intent intent = new Intent(SpalshScreen.this, Login.class);
-                    startActivity(intent);
+                    sessionManager.checkLogin();
                 }
             }
         };
