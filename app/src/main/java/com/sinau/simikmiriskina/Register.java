@@ -166,6 +166,7 @@ public class Register extends FragmentActivity implements DatePickerDialog.OnDat
     @Override
     public void onDateSet(DatePickerDialog datePickerDialog, int year, int month, int day) {
         EditText cobaDate = (EditText) findViewById(R.id.getdate);
-        cobaDate.setText(year + "-" + month + "-" + day);
+        int fixMonth = month + 1;
+        cobaDate.setText(year + "-" + fixMonth + "-" + day);
     }
 }
