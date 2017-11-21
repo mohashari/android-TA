@@ -7,6 +7,7 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -24,6 +25,7 @@ public class Home extends AppCompatActivity
     HashMap<String, String> user;
 
     FragmentManager fragmentManager = getSupportFragmentManager();
+    ActionBar actionBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +33,7 @@ public class Home extends AppCompatActivity
         setContentView(R.layout.activity_home);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        actionBar = getSupportActionBar();
 
         session = new SessionManager(getApplicationContext());
         user = session.getUserDetails();
@@ -44,6 +47,8 @@ public class Home extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+
+        actionBar.setTitle("Home");
         fragmentManager.beginTransaction()
                 .replace(R.id.content_frame, new HomeFragment())
                 .commit();
@@ -92,17 +97,20 @@ public class Home extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_profil) {
+            actionBar.setTitle("Profile");
             fragmentManager.beginTransaction()
                     .replace(R.id.content_frame, new ProfileFragment())
                     .commit();
 
         } else if (id == R.id.nav_jadwal) {
+            actionBar.setTitle("Jadwal");
 
             fragmentManager.beginTransaction()
                     .replace(R.id.content_frame, new MyJadwalFragment())
                     .commit();
 
         } else if (id == R.id.nav_ambilKelas) {
+            actionBar.setTitle("Ambil Kelas");
             fragmentManager.beginTransaction()
                     .replace(R.id.content_frame, new MataKuliahFragment())
                     .commit();
