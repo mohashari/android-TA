@@ -1,6 +1,7 @@
 package com.sinau.simikmiriskina;
 
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -46,6 +47,7 @@ public class ProfileFragment extends Fragment {
     private EditText txtJurusan;
     private EditText txtPhone;
     private EditText txtPaying;
+    private FloatingActionButton fabUpdate;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -68,8 +70,16 @@ public class ProfileFragment extends Fragment {
         txtJurusan = (EditText) view.findViewById(R.id.edit_jurusan);
         txtPhone = (EditText) view.findViewById(R.id.edit_phone);
         txtPaying = (EditText) view.findViewById(R.id.edit_paying);
+        fabUpdate = (FloatingActionButton) view.findViewById(R.id.fab);
 
         bindData();
+
+        fabUpdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
 
 
         return view;
@@ -120,5 +130,9 @@ public class ProfileFragment extends Fragment {
                 Toast.makeText(getActivity().getApplicationContext(), "Jaringan Error !", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void updateData(){
+
     }
 }
