@@ -11,7 +11,7 @@ import com.google.gson.annotations.SerializedName;
 
 public class Mahasiswa {
     private String id;
-    private String version;
+    private Integer version;
     private String nim;
     private String name;
     private String gender;
@@ -36,11 +36,11 @@ public class Mahasiswa {
         this.id = id;
     }
 
-    public String getVersion() {
+    public Integer getVersion() {
         return version;
     }
 
-    public void setVersion(String version) {
+    public void setVersion(Integer version) {
         this.version = version;
     }
 
