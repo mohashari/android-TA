@@ -5,6 +5,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -212,11 +213,14 @@ public class ProfileFragment extends Fragment implements DatePickerDialog.OnDate
                     txtPhone.setText(m.getPhone().toString());
                     txtPaying.setText(m.getPaying());
 
-                    if (m.getGender().toString().equals("male")) {
+                    if (m.getGender().toString().equals("M")) {
                         rbGenderMale.setChecked(true);
-                    } else if (m.getGender().toString().equals("female")) {
+                    } else if (m.getGender().toString().equals("F")) {
                         rbGenderFemale.setChecked(true);
                     }
+
+                    Snackbar.make(view, "Data telah di update", Snackbar.LENGTH_SHORT)
+                            .setAction("Action", null).show();
 
                 } else {
                     Toast.makeText(getActivity().getApplicationContext(),
