@@ -64,7 +64,7 @@ public class MyJadwalFragment extends Fragment {
             }
 
             private void refreshItem() {
-                loadDataPasien();
+                loadData();
                 onLoadItem();
             }
 
@@ -80,13 +80,13 @@ public class MyJadwalFragment extends Fragment {
         session = new SessionManager(myView.getContext());
         user = session.getUserDetails();
 
-        loadDataPasien();
+        loadData();
 
         return myView;
     }
 
 
-    private void loadDataPasien(){
+    private void loadData(){
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(ApiClient.URL)
                 .addConverterFactory(GsonConverterFactory.create())

@@ -46,6 +46,7 @@ public class ForgotPassword extends AppCompatActivity {
 
                 if (message.equals("OK")) {
                     Intent intent = new Intent(getApplicationContext(),Login.class);
+                    Toast.makeText(getApplicationContext(), "Cek Email Anda Untuk Mendapatkan Password", Toast.LENGTH_SHORT).show();
                     startActivity(intent);
                 } else {
                     Toast.makeText(getApplicationContext(), response.body().getResult().toString(), Toast.LENGTH_SHORT).show();

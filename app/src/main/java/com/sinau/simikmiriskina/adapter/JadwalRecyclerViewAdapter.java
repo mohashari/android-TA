@@ -28,7 +28,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 
-public class JadwalRecyclerViewAdapter extends RecyclerView.Adapter<JadwalRecyclerViewAdapter.ViewHolder>{
+public class JadwalRecyclerViewAdapter extends RecyclerView.Adapter<JadwalRecyclerViewAdapter.ViewHolder> {
     private Context context;
     private List<Matakuliah> mataKuliahs;
 
@@ -61,7 +61,7 @@ public class JadwalRecyclerViewAdapter extends RecyclerView.Adapter<JadwalRecycl
         return mataKuliahs.size();
     }
 
-    public class ViewHolder extends  RecyclerView.ViewHolder implements View.OnClickListener {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView txtId;
         private TextView txtNama;
         private TextView txtSemester;
@@ -72,7 +72,7 @@ public class JadwalRecyclerViewAdapter extends RecyclerView.Adapter<JadwalRecycl
 
 
         HashMap<String, String> user;
-        SessionManager session ;
+        SessionManager session;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -97,16 +97,16 @@ public class JadwalRecyclerViewAdapter extends RecyclerView.Adapter<JadwalRecycl
             alertDialogBuilder
                     .setMessage("Apakah anda yakin akan menghapus mata kuliah ini ?")
                     .setCancelable(false)
-                    .setPositiveButton("Hapus",new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog,int id) {
+                    .setPositiveButton("Hapus", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
                             hapusJadwal();
 //                            Toast.makeText(context,
 //                                    user.get(SessionManager.kunci_email) +" dan "+ txtId.getText().toString(),
 //                                    Toast.LENGTH_SHORT).show();
                         }
                     })
-                    .setNegativeButton("Batal",new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog,int id) {
+                    .setNegativeButton("Batal", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
                             dialog.cancel();
                         }
                     });
@@ -115,7 +115,7 @@ public class JadwalRecyclerViewAdapter extends RecyclerView.Adapter<JadwalRecycl
             alertDialog.show();
         }
 
-        public void hapusJadwal(){
+        public void hapusJadwal() {
             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl(ApiClient.URL)
                     .addConverterFactory(GsonConverterFactory.create())
@@ -129,9 +129,9 @@ public class JadwalRecyclerViewAdapter extends RecyclerView.Adapter<JadwalRecycl
                 public void onResponse(Call<ResultMessage> call, Response<ResultMessage> response) {
                     String message = response.body().getMessage().toString();
 
-                    if(message.equals("OK")){
+                    if (message.equals("OK")) {
                         Toast.makeText(context,
-                                "Matakuliah berhasil dihapus "+txtNama.getText().toString(),
+                                "Matakuliah " + txtNama.getText().toString() + " berhasil dihapus",
                                 Toast.LENGTH_SHORT).show();
                     } else {
                         Toast.makeText(context.getApplicationContext(),

@@ -37,7 +37,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:drawableLeft="@drawable/ic_account_username"
-                    android:hint=" Username"
+                    android:hint=" Nim"
                     android:inputType="text" />
             </android.support.design.widget.TextInputLayout>
 
@@ -64,7 +64,9 @@
                 android:layout_marginBottom="24dp"
                 android:layout_marginTop="24dp"
                 android:padding="12dp"
-                android:text="Login" />
+                android:text="Login" >
+
+                </android.support.v7.widget.AppCompatButton>
 
             <Button
                 android:id="@+id/link_signup"
@@ -73,7 +75,6 @@
                 android:layout_marginBottom="24dp"
                 android:gravity="center"
                 android:background="@drawable/backgrou_garis"
-
                 android:text="Register"
                 android:textSize="16dip" />
 

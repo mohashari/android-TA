@@ -31,7 +31,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 
-public class MataKuliahRecyclerViewAdapter extends RecyclerView.Adapter<MataKuliahRecyclerViewAdapter.ViewHolder>{
+public class MataKuliahRecyclerViewAdapter extends RecyclerView.Adapter<MataKuliahRecyclerViewAdapter.ViewHolder> {
     private Context context;
     private List<Matakuliah> mataKuliahs;
 
@@ -63,7 +63,7 @@ public class MataKuliahRecyclerViewAdapter extends RecyclerView.Adapter<MataKuli
         return mataKuliahs.size();
     }
 
-    public class ViewHolder extends  RecyclerView.ViewHolder implements View.OnClickListener {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView txtId;
         private TextView txtNama;
         private TextView txtSemester;
@@ -72,7 +72,7 @@ public class MataKuliahRecyclerViewAdapter extends RecyclerView.Adapter<MataKuli
         private TextView txtHari;
 
         HashMap<String, String> user;
-        SessionManager session ;
+        SessionManager session;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -97,13 +97,13 @@ public class MataKuliahRecyclerViewAdapter extends RecyclerView.Adapter<MataKuli
             alertDialogBuilder
                     .setMessage("Apakah anda yakin akan mengambil mata kuliah ini ?")
                     .setCancelable(false)
-                    .setPositiveButton("Tambah",new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog,int id) {
+                    .setPositiveButton("Tambah", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
                             addJadwal();
                         }
                     })
-                    .setNegativeButton("Batal",new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog,int id) {
+                    .setNegativeButton("Batal", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
                             dialog.cancel();
                         }
                     });
@@ -113,7 +113,7 @@ public class MataKuliahRecyclerViewAdapter extends RecyclerView.Adapter<MataKuli
         }
 
 
-        private void addJadwal(){
+        private void addJadwal() {
 
             AddJadwal r = new AddJadwal();
             r.setIdMahasiswa(user.get(SessionManager.kunci_email));
@@ -132,9 +132,9 @@ public class MataKuliahRecyclerViewAdapter extends RecyclerView.Adapter<MataKuli
                 public void onResponse(Call<ResultMessage> call, Response<ResultMessage> response) {
                     String message = response.body().getMessage().toString();
 
-                    if(message.equals("OK")){
+                    if (message.equals("OK")) {
                         Toast.makeText(context,
-                                "Matakuliah berhasil ditambahkan",
+                                "Matakuliah " + txtNama.getText().toString() + " berhasil ditambahkan",
                                 Toast.LENGTH_SHORT).show();
                     } else {
                         Toast.makeText(context.getApplicationContext(),
